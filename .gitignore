@@ -1,0 +1,22 @@
+# created by virtualenv automatically
+
+# Ignore common build folders
+share/
+scripts/
+lib/
+etc/
+
+# Ignore editor temporary files
+*.pyc
+*.swp
+
+pyvenv.cfg
+
+# Ignore IDE/version control configuration files
+.idea/
+.vscode/
+.git/
+
+# Ignore virtual environment folder
+venv/
+
