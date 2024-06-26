@@ -11,6 +11,7 @@ etc/
 *.swp
 
 pyvenv.cfg
+.ipynb_checkpoints
 
 # Ignore IDE/version control configuration files
 .idea/
