@@ -7,6 +7,8 @@ The goal of this project is to develop a linear regression model to predict the 
 
 ## About the Dataset 📊
 
+- Download the dataset from here: https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data 
+
 <center><img src = 'https://storage.googleapis.com/kaggle-media/competitions/House%20Prices/kaggle_5407_media_housesbanner.png'></center>
 
 Ask a home buyer to describe their dream house, and they probably won't begin with the height of the basement ceiling or the proximity to an east-west railroad. But this playground competition's dataset proves that much more influences price negotiations than the number of bedrooms or a white-picket fence.
