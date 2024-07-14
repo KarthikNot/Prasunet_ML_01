@@ -9,8 +9,7 @@ from sklearn.preprocessing import RobustScaler
 st.set_page_config(page_icon="🏡", page_title="House Prices Prediction", layout='wide')
 
 st.markdown('<h1 style="text-align:center;">🏡 HOUSE PRICES PREDICTION 🏡</h1>', unsafe_allow_html=True)
-st.markdown('<div style="text-align:center;">🔍 based on 1stFlrSF, 2ndFlrSF, LowQualFinSF, GrLivArea, GarageArea, WoodDeckSF, OpenPorchSF, TotalBath, \
-             BsmtFullBath, BathRatio, FullBath, HalfBath, BedroomAbvGr, TotRmsAbvGrd 🔍</div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align:center;">🔍 based on Square Footing, Number of Bedrooms and Number of Bathrooms🔍</div>', unsafe_allow_html=True)
 st.write('---')
 
 
@@ -33,7 +32,7 @@ def model_predictions(dataset, features):
         return None, None
 
     rs = RobustScaler()
-    rs.fit(dataset.iloc[:,:-1])
+    rs.fit(dataset.loc[:,['SquareFeet', 'Bedrooms', 'Bathrooms']])
 
     input_data = rs.transform(features)
     
@@ -42,31 +41,19 @@ def model_predictions(dataset, features):
     
     return l2_prediction, lr_prediction
 
-# Function to process uploaded CSV file
 def process_uploaded_file(dataset, uploaded_file):
     if uploaded_file is not None:
         try:
             df = pd.read_csv(uploaded_file)
             st.success('File successfully uploaded and loaded into DataFrame.')
 
-            # Predictions for each row in the uploaded CSV
             l2_predictions = []
             lr_predictions = []
-
-            cols = ['1stFlrSF', '2ndFlrSF', 'LowQualFinSF', 'GrLivArea', 'GarageArea',
-                    'WoodDeckSF', 'OpenPorchSF', 'BsmtFullBath', 
-                    'FullBath', 'HalfBath', 'BedroomAbvGr', 'TotRmsAbvGrd']
             
-            df = df.loc[:, cols]
-
-            df.insert(7, 'TotalBath', df['FullBath'] + (2 * df['HalfBath']))
-            df.insert(9, 'BathRatio', ((df['FullBath'] + df['HalfBath']) / df['TotalBath']))
-
-
+            df = df.loc[:, ['SquareFeet', 'Bedrooms', 'Bathrooms']]
             df = df.ffill()
-
             rs = RobustScaler()
-            rs.fit(dataset.iloc[:,:-1])
+            rs.fit(dataset.loc[:,['SquareFeet', 'Bedrooms', 'Bathrooms']])
 
             df = rs.transform(df)
 
@@ -87,39 +74,21 @@ def process_uploaded_file(dataset, uploaded_file):
 
 
 def main():
-    global dataset  
+    global dataset
+    dataset = pd.read_csv('./data/housing_price_dataset.csv') 
 
-    dataset = pd.read_csv('data/refined_dataset.csv') 
+    col1, col2, col3 = st.columns(3)
 
-    st.write('👋 Hello! Please fill in the details below or upload a CSV file to predict house prices:')
-    
-    col1, col2 = st.columns(2)
-    
     with col1:
-        first_floor_sf = st.number_input('1st Floor Square Feet' , value = 0.0, format = '%f')
-        second_floor_sf = st.number_input('2nd Floor Square Feet' , value = 0.0, format = '%f' )    
-        low_qual_fin_sf = st.number_input('Low Quality Finished Square Feet' , value = 0.0, format = '%f' )
-        gr_liv_area = st.number_input('Above Grade (Ground) Living Area Square Feet' , value = 0.0, format = '%f')
-        garage_area = st.number_input('Garage Area' , value = 0.0, format = '%f' )
-        wood_deck_sf = st.number_input('Wood Deck Area'  , value = 0.0, format = '%f')
-    
+        square_footing = st.number_input("Square Footing of the house")
+
     with col2:
-        open_porch_sf = st.number_input('Open Porch Area', value = 0.0, format = '%f')
-        bsmt_full_bath = st.number_input('Basement Full Bath', value = 0, format='%d' )
-        full_bath = st.number_input('Full Bath',value = 0, format='%d' )
-        half_bath = st.number_input('Half Bath',value = 0, format='%d' )
-        bedroom_abv_gr = st.number_input('Bedrooms Above Grade',value = 0, format='%d' )
-        tot_rms_abv_grd = st.number_input('Total Rooms Above Grade',value = 0, format='%d' )
+        bathrooms = st.number_input("Total Number of Bedrooms in the house")
+
+    with col3:
+        bedrooms = st.number_input("Total Number of Bathrooms in the house")
     
-    
-    total_bath = full_bath + 2 * half_bath
-    bath_ratio = (full_bath + half_bath) / (total_bath if total_bath != 0 else 1)
-    
-    
-    features = [
-        first_floor_sf, second_floor_sf, low_qual_fin_sf, gr_liv_area, garage_area, wood_deck_sf, 
-        open_porch_sf, total_bath, bsmt_full_bath, bath_ratio, full_bath, half_bath, bedroom_abv_gr, tot_rms_abv_grd
-    ]
+    features = [square_footing, bathrooms, bedrooms]
     
     
     submit_button = st.button('Predict Individual 🚀')
