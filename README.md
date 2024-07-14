@@ -1,6 +1,6 @@
 # <center><i>Prasunet Company Machine Learning Project - 01</i></center>
 
-# <center>House Prices Prediction</center>j
+# <center>House Prices Prediction</center>
 
 ## Objective 🏠
 The goal of this project is to develop a linear regression model to predict the prices of houses based on their square footage, number of bedrooms, and number of bathrooms. This predictive model can be used by real estate agents, potential buyers, and sellers to estimate the market value of a property.
