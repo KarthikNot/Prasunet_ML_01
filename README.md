@@ -171,7 +171,7 @@ If you don't have Python installed yet, head over to the official download page:
 
     In the terminal and run this command:
     ``` bash
-    virtualenv <name_of_virtualenv>
+    virtualenv venv
     ```
 
 3.  Activate the virtual environment:
@@ -180,8 +180,6 @@ If you don't have Python installed yet, head over to the official download page:
     ``` bash
     venv\Scripts\activate
     ```
-
-
 
 **2. Download the Repo**
 
