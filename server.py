@@ -6,9 +6,8 @@ import pandas as pd
 import joblib
 from sklearn.preprocessing import RobustScaler
 
-# 1145,1053,0,2198,836,192,84,4,1,0.75,2,1,4,9,
+st.set_page_config(page_icon="🏡", page_title="House Prices Prediction", layout='wide')
 
-# Centered title and description
 st.markdown('<h1 style="text-align:center;">🏡 HOUSE PRICES PREDICTION 🏡</h1>', unsafe_allow_html=True)
 st.markdown('<div style="text-align:center;">🔍 based on 1stFlrSF, 2ndFlrSF, LowQualFinSF, GrLivArea, GarageArea, WoodDeckSF, OpenPorchSF, TotalBath, \
              BsmtFullBath, BathRatio, FullBath, HalfBath, BedroomAbvGr, TotRmsAbvGrd 🔍</div>', unsafe_allow_html=True)
@@ -86,11 +85,11 @@ def process_uploaded_file(dataset, uploaded_file):
         except Exception as e:
             st.error(f"Error processing uploaded file: {e}")
 
-# Form for input or upload CSV file
-def main():
-    global dataset  # Make dataset accessible globally
 
-    dataset = pd.read_csv('data/refined_dataset.csv')  # Load your dataset here
+def main():
+    global dataset  
+
+    dataset = pd.read_csv('data/refined_dataset.csv') 
 
     st.write('👋 Hello! Please fill in the details below or upload a CSV file to predict house prices:')
     
@@ -112,17 +111,17 @@ def main():
         bedroom_abv_gr = st.number_input('Bedrooms Above Grade',value = 0, format='%d' )
         tot_rms_abv_grd = st.number_input('Total Rooms Above Grade',value = 0, format='%d' )
     
-    # Calculate TotalBath and BathRatio
+    
     total_bath = full_bath + 2 * half_bath
     bath_ratio = (full_bath + half_bath) / (total_bath if total_bath != 0 else 1)
     
-    # Collect all feature inputs
+    
     features = [
         first_floor_sf, second_floor_sf, low_qual_fin_sf, gr_liv_area, garage_area, wood_deck_sf, 
         open_porch_sf, total_bath, bsmt_full_bath, bath_ratio, full_bath, half_bath, bedroom_abv_gr, tot_rms_abv_grd
     ]
     
-    # Submit button for individual predictions
+    
     submit_button = st.button('Predict Individual 🚀')
 
     if submit_button:
@@ -133,7 +132,6 @@ def main():
 
     st.write('---')
 
-    # File upload section
     uploaded_file = st.file_uploader('Upload a CSV file for batch prediction:', type=['csv'])
 
     if st.button('Predict from File 📁') and uploaded_file is not None:
