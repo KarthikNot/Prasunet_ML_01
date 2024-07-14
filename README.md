@@ -176,7 +176,7 @@ If you don't have Python installed yet, head over to the official download page:
 
 3.  Activate the virtual environment:
 
-    To activate the virtual environment
+    To activate the virtual environment:
     ``` bash
     venv\Scripts\activate
     ```
