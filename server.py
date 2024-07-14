@@ -8,8 +8,8 @@ from sklearn.preprocessing import RobustScaler
 
 st.set_page_config(page_icon="🏡", page_title="House Prices Prediction", layout='wide')
 
-st.markdown('<h1 style="text-align:center;">🏡 HOUSE PRICES PREDICTION 🏡</h1>', unsafe_allow_html=True)
-st.markdown('<div style="text-align:center;">🔍 based on Square Footing, Number of Bedrooms and Number of Bathrooms🔍</div>', unsafe_allow_html=True)
+st.markdown('<h1 style="text-align:center;">HOUSE PRICES PREDICTION 🏡</h1>', unsafe_allow_html=True)
+st.markdown('<div style="text-align:center;">based on Square Footing, Number of Bedrooms and Number of Bathrooms🔍</div>', unsafe_allow_html=True)
 st.write('---')
 
 
